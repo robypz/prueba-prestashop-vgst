@@ -3,45 +3,60 @@
  * Falcon Child Theme - Custom Stylesheet (custom.css)
  * ==============================================================================
  * 
- * Este archivo se carga automáticamente en todas las páginas de PrestaShop
- * con la máxima prioridad (priority: 1000), permitiéndote sobrescribir estilos,
- * colores y tipografías del tema Falcon padre sin modificar sus archivos base.
+ * Colores extraídos directamente del diseño Figma:
+ * https://www.figma.com/design/MD8tO5wqwg3BkUTgdsMIzP/Prestashop?node-id=2-606
  *
- * NOTA: Después de hacer cambios, si no los ves reflejados de inmediato,
- * asegúrate de limpiar la caché en el Back Office o con:
- *   docker compose exec prestashop ./bin/console cache:clear --no-warmup
+ * Este archivo se carga en el Front Office con prioridad 1000, sobrescribiendo
+ * los estilos base de Falcon sin alterar los archivos del tema padre.
  */
 
-/* ==============================================================================
-   1. TIPOGRAFÍA PERSONALIZADA (Opcional - Descomenta o añade tu fuente)
-   ============================================================================== */
-/* Ejemplo de importación de Google Fonts: */
-/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
-
 :root {
-  /* --- Tipografía --- */
-  --child-font-family-base: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --child-font-family-headings: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-
-  /* --- Paleta de Colores Principal --- */
-  --child-color-primary: #007bff;        /* Color principal / de marca */
-  --child-color-primary-hover: #0056b3;  /* Hover del color principal */
-  --child-color-secondary: #6c757d;      /* Color secundario */
-  --child-color-accent: #ff9a52;         /* Color de acento / llamadas a la acción */
+  /* ==========================================================================
+     1. PALETA DE COLORES EXTRAÍDA DE FIGMA
+     ========================================================================== */
   
-  /* --- Colores de Estados --- */
-  --child-color-success: #28a745;
-  --child-color-danger: #dc3545;
-  --child-color-warning: #ffc107;
-  --child-color-info: #17a2b8;
+  /* --- Colores de Marca y Acentos --- */
+  --figma-primary-teal: #287C85;           /* Teal oscuro: Navegación principal, footer, botones de búsqueda, badge "NUEVO" */
+  --figma-primary-teal-hover: #1e6067;     /* Hover de teal oscuro */
+  --figma-secondary-teal: #B6DFE2;         /* Aqua suave: Barra de migas de pan (Breadcrumbs) */
+  --figma-accent-yellow: #F5B82E;          /* Amarillo cálido: Pre-header informativo y badge "FUERA DE STOCK" */
+  --figma-cta-purple: #5B30CE;             /* Violeta / Púrpura: Botón "AÑADIR A LA CESTA" y badge "-30%" */
+  --figma-cta-purple-hover: #4c26b8;       /* Hover botón añadir a la cesta */
 
-  /* --- Textos y Fondos --- */
-  --child-color-text: #212529;           /* Color de texto principal */
-  --child-color-text-muted: #6c757d;     /* Color de texto secundario / aclarado */
-  --child-color-headings: #212529;       /* Color de encabezados */
-  --child-color-body-bg: #ffffff;        /* Fondo general */
-  --child-color-surface-bg: #f8f9fa;     /* Fondo de bloques / tarjetas */
-  --child-color-border: #dee2e6;         /* Color de bordes */
+  /* --- Fondos y Superficies --- */
+  --figma-bg-main: #FFFFFF;                /* Fondo blanco de página y tarjetas */
+  --figma-bg-surface: #F8F9FA;             /* Fondo de bloques y secciones */
+  --figma-bg-soft-tint: #F3F4F6;           /* Cajas de metadata, etiquetas de producto, selector de cantidad */
+  --figma-bg-soft-purple: #F3F0FF;         /* Caja informativa de envío */
+  --figma-border: #E5E7EB;                 /* Color de bordes y separadores */
+
+  /* --- Tipografía y Textos --- */
+  --figma-font-base: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --figma-text-primary: #111827;           /* Textos principales, títulos y precios principales */
+  --figma-text-secondary: #4B5563;         /* Descripciones, metadatos y etiquetas secundarias */
+  --figma-text-muted: #9CA3AF;             /* Precios antiguos tachados y placeholders */
+  --figma-text-on-dark: #FFFFFF;           /* Texto blanco sobre fondos oscuros (menú, botones, footer) */
+
+  /* --- Badges y Etiquetas de Producto --- */
+  --figma-badge-new-bg: var(--figma-primary-teal);
+  --figma-badge-new-text: #FFFFFF;
+  --figma-badge-out-of-stock-bg: var(--figma-accent-yellow);
+  --figma-badge-out-of-stock-text: #111827;
+  --figma-badge-discount-bg: var(--figma-cta-purple);
+  --figma-badge-discount-text: #FFFFFF;
+
+  /* --- Alias para compatibilidad con selectores del child theme --- */
+  --child-color-primary: var(--figma-primary-teal);
+  --child-color-primary-hover: var(--figma-primary-teal-hover);
+  --child-color-secondary: var(--figma-secondary-teal);
+  --child-color-accent: var(--figma-accent-yellow);
+  --child-color-cta: var(--figma-cta-purple);
+  --child-color-cta-hover: var(--figma-cta-purple-hover);
+  --child-color-text: var(--figma-text-primary);
+  --child-color-text-muted: var(--figma-text-muted);
+  --child-color-headings: var(--figma-text-primary);
+  --child-color-body-bg: var(--figma-bg-main);
+  --child-color-border: var(--figma-border);
 }
 
 /* ==============================================================================
@@ -49,103 +64,217 @@
    ============================================================================== */
 
 body {
-  font-family: var(--child-font-family-base);
-  color: var(--child-color-text);
-  background-color: var(--child-color-body-bg);
+  font-family: var(--figma-font-base);
+  color: var(--figma-text-primary);
+  background-color: var(--figma-bg-main);
 }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: var(--child-font-family-headings);
-  color: var(--child-color-headings);
+  color: var(--figma-text-primary);
+  font-weight: 700;
 }
 
 a {
-  color: var(--child-color-primary);
+  color: var(--figma-primary-teal);
   transition: color 0.2s ease-in-out;
 }
 
 a:hover, a:focus {
-  color: var(--child-color-primary-hover);
+  color: var(--figma-primary-teal-hover);
 }
 
 /* ==============================================================================
-   3. BOTONES
+   3. CABECERA (HEADER) SEGÚN FIGMA
    ============================================================================== */
 
-/* Botón Primario */
+/* Pre-header amarillo superior ("Lun-Vie 9:00h - 19:00h | 976 123 456", envíos gratis) */
+.header-nav {
+  background-color: var(--figma-accent-yellow) !important;
+  color: #111827 !important;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-bottom: none !important;
+  padding-top: 0.35rem !important;
+  padding-bottom: 0.35rem !important;
+}
+
+.header-nav a {
+  color: #111827 !important;
+}
+
+/* Barra del Menú de Navegación Principal (Teal) */
+.main-menu {
+  background-color: var(--figma-primary-teal);
+  border-radius: 4px;
+}
+
+.main-menu .main-menu__item--top > .main-menu__link {
+  color: var(--figma-text-on-dark);
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+}
+
+.main-menu .main-menu__item--top > .main-menu__link:hover {
+  background-color: var(--figma-primary-teal-hover);
+  color: var(--figma-text-on-dark);
+}
+
+/* Iconos de cabecera y buscador */
+.header-top__icon {
+  color: var(--figma-text-primary);
+}
+
+.search-widget form .btn[type="submit"] {
+  background-color: var(--figma-primary-teal);
+  color: #FFFFFF;
+  border-color: var(--figma-primary-teal);
+}
+
+/* ==============================================================================
+   4. MIGAS DE PAN (BREADCRUMBS) SEGÚN FIGMA
+   ============================================================================== */
+
+.breadcrumb {
+  background-color: var(--figma-secondary-teal) !important;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.breadcrumb a,
+.breadcrumb li {
+  color: #111827;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.breadcrumb a:hover {
+  color: var(--figma-primary-teal);
+}
+
+/* ==============================================================================
+   5. BOTONES Y LLAMADAS A LA ACCIÓN (CTA)
+   ============================================================================== */
+
+/* Botón Añadir a la Cesta (Violeta de Figma #5B30CE) */
+.add-to-cart,
+.product-add-to-cart .btn-primary,
+.cart-detailed-actions .btn-primary {
+  background-color: var(--figma-cta-purple) !important;
+  border-color: var(--figma-cta-purple) !important;
+  color: #FFFFFF !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.add-to-cart:hover,
+.product-add-to-cart .btn-primary:hover,
+.cart-detailed-actions .btn-primary:hover {
+  background-color: var(--figma-cta-purple-hover) !important;
+  border-color: var(--figma-cta-purple-hover) !important;
+}
+
+/* Botón Primario Genérico (Teal de Marca) */
 .btn-primary {
-  background-color: var(--child-color-primary);
-  border-color: var(--child-color-primary);
-  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--figma-primary-teal);
+  border-color: var(--figma-primary-teal);
+  color: #FFFFFF;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: var(--child-color-primary-hover) !important;
-  border-color: var(--child-color-primary-hover) !important;
-}
-
-/* Botón Añadir al carrito */
-.add-to-cart,
-.product-add-to-cart .btn-primary {
-  background-color: var(--child-color-primary);
-  border-color: var(--child-color-primary);
-}
-
-.add-to-cart:hover,
-.product-add-to-cart .btn-primary:hover {
-  background-color: var(--child-color-primary-hover);
-  border-color: var(--child-color-primary-hover);
+  background-color: var(--figma-primary-teal-hover) !important;
+  border-color: var(--figma-primary-teal-hover) !important;
 }
 
 /* ==============================================================================
-   4. CABECERA Y NAVEGACIÓN
+   6. TARJETAS DE PRODUCTO, PRECIOS Y ETIQUETAS (BADGES)
    ============================================================================== */
 
-/* Menú de navegación principal */
-.main-menu .main-menu__item--top > .main-menu__link {
-  font-weight: 500;
-}
-
-.main-menu .main-menu__item--top > .main-menu__link:hover {
-  color: var(--child-color-primary);
-}
-
-/* ==============================================================================
-   5. TARJETAS DE PRODUCTO Y PRECIOS
-   ============================================================================== */
-
-/* Precios de producto */
+/* Precio principal */
 .product-price,
 .price,
 .current-price {
-  color: var(--child-color-primary);
+  color: var(--figma-text-primary);
   font-weight: 700;
 }
 
-/* Badges y etiquetas de descuento */
+/* Precio antiguo tachado */
+.regular-price,
+.has-discount .regular-price {
+  color: var(--figma-text-muted);
+  text-decoration: line-through;
+}
+
+/* Badge Descuento (Violeta #5B30CE) */
 .product-flag--discount,
-.product-flags .discount {
-  background-color: var(--child-color-accent);
-  color: #fff;
+.product-flags .discount,
+.badge-discount {
+  background-color: var(--figma-badge-discount-bg) !important;
+  color: var(--figma-badge-discount-text) !important;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+/* Badge Nuevo (Teal #287C85) */
+.product-flag--new,
+.product-flags .new,
+.badge-new {
+  background-color: var(--figma-badge-new-bg) !important;
+  color: var(--figma-badge-new-text) !important;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+/* Badge Fuera de Stock (Amarillo #F5B82E) */
+.product-flag--out-of-stock,
+.badge-out-of-stock {
+  background-color: var(--figma-badge-out-of-stock-bg) !important;
+  color: var(--figma-badge-out-of-stock-text) !important;
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+/* Tarjetas de Producto */
+.product-miniature {
+  border: 1px solid var(--figma-border);
+  border-radius: 8px;
+  background-color: var(--figma-bg-main);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product-miniature:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ==============================================================================
-   6. CARRITO Y CHECKOUT
-   ============================================================================== */
-
-/* Badge contador del carrito */
-.header-top__block--cart .cart-preview__count {
-  background-color: var(--child-color-primary);
-  color: #fff;
-}
-
-/* ==============================================================================
-   7. PIE DE PÁGINA (FOOTER)
+   7. PIE DE PÁGINA (FOOTER) SEGÚN FIGMA
    ============================================================================== */
 
 .footer-container {
-  border-top: 1px solid var(--child-color-border);
+  background-color: var(--figma-primary-teal);
+  color: #FFFFFF;
+  margin-top: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.footer-container a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-container a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+.footer-container h4,
+.footer-container .h4,
+.footer-container .block-contact-title {
+  color: #FFFFFF;
+  font-weight: 700;
 }
