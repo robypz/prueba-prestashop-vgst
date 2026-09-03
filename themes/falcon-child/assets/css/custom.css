@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
 /**
  * ==============================================================================
  * Falcon Child Theme - Custom Stylesheet (custom.css)
  * ==============================================================================
  * 
- * Colores extraídos directamente del diseño Figma:
+ * Colores y Tipografía (Montserrat) extraídos del diseño Figma:
  * https://www.figma.com/design/MD8tO5wqwg3BkUTgdsMIzP/Prestashop?node-id=2-606
  *
  * Este archivo se carga en el Front Office con prioridad 1000, sobrescribiendo
@@ -30,8 +32,9 @@
   --figma-bg-soft-purple: #F3F0FF;         /* Caja informativa de envío */
   --figma-border: #E5E7EB;                 /* Color de bordes y separadores */
 
-  /* --- Tipografía y Textos --- */
-  --figma-font-base: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* --- Tipografía y Textos (Figma: Montserrat) --- */
+  --figma-font-base: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --figma-font-headings: "Montserrat", sans-serif;
   --figma-text-primary: #111827;           /* Textos principales, títulos y precios principales */
   --figma-text-secondary: #4B5563;         /* Descripciones, metadatos y etiquetas secundarias */
   --figma-text-muted: #9CA3AF;             /* Precios antiguos tachados y placeholders */
@@ -63,14 +66,27 @@
    2. REGLAS BASE Y TIPOGRAFÍA
    ============================================================================== */
 
-body {
+body,
+button,
+input,
+optgroup,
+select,
+textarea,
+.btn,
+.nav-link,
+.navbar,
+.form-control {
   font-family: var(--figma-font-base);
+}
+
+body {
   color: var(--figma-text-primary);
   background-color: var(--figma-bg-main);
 }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--figma-font-headings);
   color: var(--figma-text-primary);
   font-weight: 700;
 }
