@@ -1,0 +1,1 @@
+../../../falcon/assets/js/product.js

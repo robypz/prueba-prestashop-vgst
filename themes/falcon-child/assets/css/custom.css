@@ -1,0 +1,151 @@
+/**
+ * ==============================================================================
+ * Falcon Child Theme - Custom Stylesheet (custom.css)
+ * ==============================================================================
+ * 
+ * Este archivo se carga automáticamente en todas las páginas de PrestaShop
+ * con la máxima prioridad (priority: 1000), permitiéndote sobrescribir estilos,
+ * colores y tipografías del tema Falcon padre sin modificar sus archivos base.
+ *
+ * NOTA: Después de hacer cambios, si no los ves reflejados de inmediato,
+ * asegúrate de limpiar la caché en el Back Office o con:
+ *   docker compose exec prestashop ./bin/console cache:clear --no-warmup
+ */
+
+/* ==============================================================================
+   1. TIPOGRAFÍA PERSONALIZADA (Opcional - Descomenta o añade tu fuente)
+   ============================================================================== */
+/* Ejemplo de importación de Google Fonts: */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'); */
+
+:root {
+  /* --- Tipografía --- */
+  --child-font-family-base: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --child-font-family-headings: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* --- Paleta de Colores Principal --- */
+  --child-color-primary: #007bff;        /* Color principal / de marca */
+  --child-color-primary-hover: #0056b3;  /* Hover del color principal */
+  --child-color-secondary: #6c757d;      /* Color secundario */
+  --child-color-accent: #ff9a52;         /* Color de acento / llamadas a la acción */
+  
+  /* --- Colores de Estados --- */
+  --child-color-success: #28a745;
+  --child-color-danger: #dc3545;
+  --child-color-warning: #ffc107;
+  --child-color-info: #17a2b8;
+
+  /* --- Textos y Fondos --- */
+  --child-color-text: #212529;           /* Color de texto principal */
+  --child-color-text-muted: #6c757d;     /* Color de texto secundario / aclarado */
+  --child-color-headings: #212529;       /* Color de encabezados */
+  --child-color-body-bg: #ffffff;        /* Fondo general */
+  --child-color-surface-bg: #f8f9fa;     /* Fondo de bloques / tarjetas */
+  --child-color-border: #dee2e6;         /* Color de bordes */
+}
+
+/* ==============================================================================
+   2. REGLAS BASE Y TIPOGRAFÍA
+   ============================================================================== */
+
+body {
+  font-family: var(--child-font-family-base);
+  color: var(--child-color-text);
+  background-color: var(--child-color-body-bg);
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--child-font-family-headings);
+  color: var(--child-color-headings);
+}
+
+a {
+  color: var(--child-color-primary);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover, a:focus {
+  color: var(--child-color-primary-hover);
+}
+
+/* ==============================================================================
+   3. BOTONES
+   ============================================================================== */
+
+/* Botón Primario */
+.btn-primary {
+  background-color: var(--child-color-primary);
+  border-color: var(--child-color-primary);
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: var(--child-color-primary-hover) !important;
+  border-color: var(--child-color-primary-hover) !important;
+}
+
+/* Botón Añadir al carrito */
+.add-to-cart,
+.product-add-to-cart .btn-primary {
+  background-color: var(--child-color-primary);
+  border-color: var(--child-color-primary);
+}
+
+.add-to-cart:hover,
+.product-add-to-cart .btn-primary:hover {
+  background-color: var(--child-color-primary-hover);
+  border-color: var(--child-color-primary-hover);
+}
+
+/* ==============================================================================
+   4. CABECERA Y NAVEGACIÓN
+   ============================================================================== */
+
+/* Menú de navegación principal */
+.main-menu .main-menu__item--top > .main-menu__link {
+  font-weight: 500;
+}
+
+.main-menu .main-menu__item--top > .main-menu__link:hover {
+  color: var(--child-color-primary);
+}
+
+/* ==============================================================================
+   5. TARJETAS DE PRODUCTO Y PRECIOS
+   ============================================================================== */
+
+/* Precios de producto */
+.product-price,
+.price,
+.current-price {
+  color: var(--child-color-primary);
+  font-weight: 700;
+}
+
+/* Badges y etiquetas de descuento */
+.product-flag--discount,
+.product-flags .discount {
+  background-color: var(--child-color-accent);
+  color: #fff;
+}
+
+/* ==============================================================================
+   6. CARRITO Y CHECKOUT
+   ============================================================================== */
+
+/* Badge contador del carrito */
+.header-top__block--cart .cart-preview__count {
+  background-color: var(--child-color-primary);
+  color: #fff;
+}
+
+/* ==============================================================================
+   7. PIE DE PÁGINA (FOOTER)
+   ============================================================================== */
+
+.footer-container {
+  border-top: 1px solid var(--child-color-border);
+}
