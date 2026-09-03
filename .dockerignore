@@ -1,0 +1,9 @@
+.git
+.gitignore
+.dockerignore
+.env
+docker-compose*.yml
+prestashop.zip
+var/cache/*
+var/logs/*
+node_modules

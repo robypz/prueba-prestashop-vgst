@@ -1,0 +1,19 @@
+{
+  "name": "@prestashopcorp/edition-module",
+  "version": "1.0.24",
+  "scripts": {
+    "precheck": "docker start temp-ps 2> /dev/null || docker run -tid -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:8.2.7-8.1",
+    "check": "docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module ghcr.io/phpstan/phpstan:latest-php8.1 analyse --error-format=prettyJson --configuration=/web/module/phpstan.neon",
+    "fmt": "php -v | grep -q 8.1 && vendor/bin/php-cs-fixer fix --quiet --diff --using-cache no || npm run docker-fmt",
+    "lint": "php -v | grep -q 8.1 && ../../../.docker/local-env/lint.sh . || npm run docker-lint",
+    "test": "php -v | grep -q 8.1 && vendor/bin/phpunit --configuration tests/phpunit.xml || npm run docker-test",
+    "validate": "composer validate --strict",
+    "postinstall": "composer install 2> /dev/null || npm run docker-composer-install",
+    "docker-fmt": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"vendor/bin/php-cs-fixer fix --quiet --diff\" local-php-env",
+    "docker-lint": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"/tmp/lint.sh . \" -v $PWD/../../.docker/local-env/lint.sh:/tmp/lint.sh local-php-env",
+    "docker-test": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"vendor/bin/phpunit tests\" local-php-env",
+    "docker-composer-install": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"composer install\" local-php-env",
+    "docker-composer-update": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"composer update\" local-php-env",
+    "docker-composer-dump-autoload": "module_folder=packages/edition-module docker compose -f ../../.docker/local-env/local-php-env.docker-compose.yml run --user \"$(id -u)\" --rm --entrypoint \"composer dump-autoload\" local-php-env"
+  }
+}

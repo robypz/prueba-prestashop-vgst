@@ -1,0 +1,191 @@
+# ==============================================================================
+# PrestaShop .gitignore
+# Compatible con PrestaShop 8.x / Docker
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Variables de entorno y configuración sensible
+# ------------------------------------------------------------------------------
+/.env
+/.env.local
+/.env.*.local
+.env.local
+.env.*.local
+
+# Permitir archivo de ejemplo
+!.env.example
+!.env.dist
+
+# Parámetros generados por la instalación (Evita commitear credenciales y estado instalado)
+/app/config/parameters.php
+/app/config/parameters.yml
+/config/settings.inc.php
+!/app/config/parameters.php.dist
+!/app/config/parameters.yml.dist
+
+# Overrides locales de Docker
+docker-compose.override.yml
+
+# ------------------------------------------------------------------------------
+# 2. Cachés, logs y archivos de ejecución
+# ------------------------------------------------------------------------------
+/var/cache/*
+!/var/cache/.gitkeep
+/var/logs/*
+!/var/logs/.gitkeep
+/var/log/*
+!/var/log/.gitkeep
+/var/sessions/*
+!/var/sessions/.gitkeep
+
+# Caché legado y Smarty
+/cache/*
+!/cache/.htaccess
+!/cache/cachefs/index.php
+!/cache/deprecated.txt
+!/cache/index.php
+!/cache/purifier/index.php
+!/cache/push/activity
+!/cache/push/index.php
+!/cache/push/trends
+!/cache/sandbox/index.php
+!/cache/smarty/cache/index.php
+!/cache/smarty/compile/index.php
+!/cache/smarty/index.php
+!/cache/tcpdf/index.php
+cache/class_index.php
+cache/class_stub.php
+cache/namespaced_class_stub.php
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ------------------------------------------------------------------------------
+# 3. Subidas, descargas y medios generados por usuarios
+# ------------------------------------------------------------------------------
+/download/*
+!/download/.htaccess
+!/download/index.php
+
+/upload/*
+!/upload/.htaccess
+!/upload/index.php
+
+# Imágenes (ignorar catálogo generado, conservar estructura y assets UI base)
+/img/*
+!/img/.htaccess
+!/img/index.php
+!/img/404.gif
+!/img/app_icon.png
+!/img/bg_500.png
+!/img/bg_loader.png
+!/img/favicon.ico
+!/img/loader.gif
+!/img/loadingAnimation.gif
+!/img/logo.jpg
+!/img/logo.png
+!/img/logo_invoice.jpg
+!/img/logo_stores.png
+!/img/macFFBgHack.png
+!/img/noimageavailable.jpg
+!/img/prestashop-avatar.png
+!/img/prestashop@2x.png
+!/img/preston-login-wink@2x.png
+!/img/preston-login@2x.png
+!/img/questionmark.png
+!/img/admin/
+!/img/flags/
+!/img/genders/
+!/img/jquery-ui/
+!/img/module/default.png
+!/img/c/index.php
+!/img/cms/index.php
+!/img/co/index.php
+!/img/e/index.php
+!/img/l/index.php
+!/img/m/index.php
+!/img/os/index.php
+!/img/p/index.php
+!/img/pr/index.php
+!/img/pr/default.jpg
+!/img/s/index.php
+!/img/scenes/
+!/img/st/index.php
+!/img/su/index.php
+!/img/t/index.php
+!/img/tmp/index.php
+
+# ------------------------------------------------------------------------------
+# 4. Backups y Auto-upgrade
+# ------------------------------------------------------------------------------
+admin*/autoupgrade/backup/*
+!admin*/autoupgrade/backup/index.php
+admin*/autoupgrade/latest/*
+admin*/autoupgrade/download/*
+admin*/backups/*
+!admin*/backups/index.php
+!admin*/backups/.htaccess
+admin*/export/*
+!admin*/export/index.php
+!admin*/export/.htaccess
+admin*/import/*
+!admin*/import/index.php
+autoupgrade/backup/*
+autoupgrade/download/*
+autoupgrade/latest/*
+backups/*
+export/*
+translations/export/*
+
+# ------------------------------------------------------------------------------
+# 5. Archivos comprimidos y dumps de BD (CRÍTICO: prestashop.zip pesa >100MB)
+# ------------------------------------------------------------------------------
+prestashop.zip
+/*.sql
+/*.sql.gz
+*.dump.sql
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+
+# ------------------------------------------------------------------------------
+# 6. Artefactos de compilación y Node
+# ------------------------------------------------------------------------------
+node_modules/
+.sass-cache/
+*.hot-update.js
+*.hot-update.json
+.cache/
+
+# ------------------------------------------------------------------------------
+# 7. IDE, editores y sistema operativo
+# ------------------------------------------------------------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.fleet/
+*.bak
+
+# ------------------------------------------------------------------------------
+# 8. Caches de testing y calidad de código
+# ------------------------------------------------------------------------------
+.phpunit.result.cache
+phpunit.xml
+coverage/
+.php-cs-fixer.cache

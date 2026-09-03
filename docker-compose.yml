@@ -1,0 +1,68 @@
+services:
+  prestashop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: prestashop-edition-classic:8.2.8
+    container_name: prestashop_app
+    restart: unless-stopped
+    ports:
+      - "${PS_PORT:-80}:80"
+    environment:
+      DB_SERVER: ${DB_SERVER:-db}
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-prestashop}
+      DB_USER: ${DB_USER:-prestashop}
+      DB_PASSWD: ${DB_PASSWORD:-prestashop}
+      DB_PREFIX: ${DB_PREFIX:-ps_}
+      PS_DOMAIN: ${PS_DOMAIN:-localhost}
+      PS_LANGUAGE: ${PS_LANGUAGE:-es}
+      PS_COUNTRY: ${PS_COUNTRY:-es}
+      PS_INSTALL_AUTO: ${PS_INSTALL_AUTO:-0}
+      PS_DEV_MODE: ${PS_DEV_MODE:-1}
+      PS_DEMO_MODE: ${PS_DEMO_MODE:-0}
+      PS_ENABLE_SSL: ${PS_ENABLE_SSL:-0}
+      PS_HANDLE_DYNAMIC_DOMAIN: ${PS_HANDLE_DYNAMIC_DOMAIN:-0}
+      ADMIN_MAIL: ${ADMIN_MAIL:-admin@prestashop.local}
+      ADMIN_PASSWD: ${ADMIN_PASSWORD:-Prestashop123!}
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - prestashop_net
+
+  db:
+    image: mysql:8.0
+    container_name: prestashop_db
+    restart: unless-stopped
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+      MYSQL_DATABASE: ${DB_NAME:-prestashop}
+      MYSQL_USER: ${DB_USER:-prestashop}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-prestashop}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - prestashop_net
+
+volumes:
+  db_data:
+
+networks:
+  prestashop_net:
+    driver: bridge
